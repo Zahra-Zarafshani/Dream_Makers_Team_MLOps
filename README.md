@@ -1,6 +1,1 @@
 # Dream_Makers_Team_MLOps
-Zahra, Zarafshani, @Z_Zaraaa
-Fatemeh Boloori,  @ftmblr
-Hajar Falaki, @hajarfalaki
-Fatemeh, Kohandani, @F_K_CE_A
-Abbas , Taffakory ,@tafakory1996
