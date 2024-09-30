@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Index{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    
+    {% block styles %} {% endblock %}
+    
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1> Welcome to Prediction Portal! </h1>
+        </header>
+
+        <div class="navbar">
+            <ul>   
+                <strong>
+                    {% if session['user'] %}
+                        <li class="navbaritem">Hello, {{ session['user'] }}!</li>
+                        <li class="navbaritem"><a href="{{ url_for('Logout') }}">Logout</a></li>
+                    {% else %}
+                        <li class="navbaritem"><a href="{{ url_for('Login') }}">Login</a></li>
+                    {% endif %}
+                </strong> 
+                <strong><li class="navbaritem"><a href="{{ url_for('Dashboard')}}"> Prediction Dashboard</a></li>
+              
+            </ul>
+        </div>
+
+        <main>
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+
+        <footer>
+            <p>All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+
+</html>

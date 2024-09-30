@@ -1,0 +1,16 @@
+.icon-container {
+    display:flex;
+    justify-content: space-around;
+}
+
+.icon {
+    width: 20vh; 
+    height: 20vh;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.icon:hover {
+    transform: scale(1.5); /* Scale effect on hover */
+}
