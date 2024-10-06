@@ -20,10 +20,73 @@ class RegistrationForm(FlaskForm):
                                                                      EqualTo('password' , message='Password mismatch!')])
     submit = SubmitField('Register')
 
+################################################################################## fatemeh-k
 
 class InputDataForm(FlaskForm):
     feature1 = StringField('Feature_1', 
                            validators=[DataRequired('Please enter value....')])
+    diagnosis = StringField('diagnosis', 
+                           validators=[DataRequired('Please enter value....')])
+    radius_mean = StringField('radius_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    texture_mean = StringField('texture_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    perimeter_mean = StringField('perimeter_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    area_mean = StringField('area_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    smoothness_mean = StringField('smoothness_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    compactness_mean = StringField('compactness_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    concavity_mean = StringField('concavity_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    concave_points_mean = StringField('concave_points_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    symmetry_mean = StringField('symmetry_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    fractal_dimension_mean = StringField('fractal_dimension_mean', 
+                           validators=[DataRequired('Please enter value....')])
+    radius_se = StringField('radius_se', 
+                           validators=[DataRequired('Please enter value....')])
+    texture_se = StringField('texture_se', 
+                           validators=[DataRequired('Please enter value....')])
+    perimeter_se = StringField('perimeter_se', 
+                           validators=[DataRequired('Please enter value....')])
+    area_se = StringField('area_se', 
+                           validators=[DataRequired('Please enter value....')])
+    smoothness_se = StringField('smoothness_se', 
+                           validators=[DataRequired('Please enter value....')])
+    compactness_se = StringField('compactness_se', 
+                           validators=[DataRequired('Please enter value....')])
+    concavity_se = StringField('concavity_se', 
+                           validators=[DataRequired('Please enter value....')])
+    concave_points_se = StringField('concave_points_se', 
+                           validators=[DataRequired('Please enter value....')])
+    symmetry_se = StringField('symmetry_se', 
+                           validators=[DataRequired('Please enter value....')])
+    fractal_dimension_se = StringField('fractal_dimension_se', 
+                           validators=[DataRequired('Please enter value....')])
+    radius_worst = StringField('radius_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    perimeter_worst = StringField('perimeter_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    area_worst = StringField('area_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    smoothness_worst = StringField('smoothness_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    compactness_worst = StringField('compactness_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    concavity_worst = StringField('concavity_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    concave_points_worst = StringField('concave_points_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    symmetry_worst = StringField('symmetry_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    fractal_dimension_worst = StringField('fractal_dimension_worst', 
+                           validators=[DataRequired('Please enter value....')])
+    
+    
     imgfile = FileField('Scan image', validators=[
         FileRequired(),
         FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')
