@@ -16,12 +16,8 @@
             <div>
                 <table>
                     <tr>
-                        <td>
-                            {{ form.imgfile.label }}
-                        </td>
-                        <td>
-                            {{ form.imgfile() }}
-                        </td>
+                        <td>{{ form.imgfile.label }}</td>
+                        <td>{{ form.imgfile() }}</td>
                         <td>
                             {% for error in form.imgfile.errors %}
                             <span style="color: red;">[{{ error }}]</span>
@@ -37,6 +33,277 @@
                             {% endfor %}
                         </td>
                     </tr>
+                    <tr>
+                        <td>{{ form.diagnosis.label }}</td>
+                        <td>{{ form.diagnosis() }}</td>
+                        <td>
+                            {% for error in form.diagnosis.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.radius_mean.label }}</td>
+                        <td>{{ form.radius_mean() }}</td>
+                        <td>
+                            {% for error in form.radius_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.texture_mean.label }}</td>
+                        <td>{{ form.texture_mean() }}</td>
+                        <td>
+                            {% for error in form.texture_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.perimeter_mean.label }}</td>
+                        <td>{{ form.perimeter_mean() }}</td>
+                        <td>
+                            {% for error in form.perimeter_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.area_mean.label }}</td>
+                        <td>{{ form.area_mean() }}</td>
+                        <td>
+                            {% for error in form.area_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.smoothness_mean.label }}</td>
+                        <td>{{ form.smoothness_mean() }}</td>
+                        <td>
+                            {% for error in form.smoothness_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.compactness_mean.label }}</td>
+                        <td>{{ form.compactness_mean() }}</td>
+                        <td>
+                            {% for error in form.compactness_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.concavity_mean.label }}</td>
+                        <td>{{ form.concavity_mean() }}</td>
+                        <td>
+                            {% for error in form.concavity_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.concave_points_mean.label }}</td>
+                        <td>{{ form.concave_points_mean() }}</td>
+                        <td>
+                            {% for error in form.concave_points_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.symmetry_mean.label }}</td>
+                        <td>{{ form.symmetry_mean() }}</td>
+                        <td>
+                            {% for error in form.symmetry_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.fractal_dimension_mean.label }}</td>
+                        <td>{{ form.fractal_dimension_mean() }}</td>
+                        <td>
+                            {% for error in form.fractal_dimension_mean.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.radius_se.label }}</td>
+                        <td>{{ form.radius_se() }}</td>
+                        <td>
+                            {% for error in form.radius_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.texture_se.label }}</td>
+                        <td>{{ form.texture_se() }}</td>
+                        <td>
+                            {% for error in form.texture_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.perimeter_se.label }}</td>
+                        <td>{{ form.perimeter_se() }}</td>
+                        <td>
+                            {% for error in form.perimeter_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.area_se.label }}</td>
+                        <td>{{ form.area_se() }}</td>
+                        <td>
+                            {% for error in form.area_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.smoothness_se.label }}</td>
+                        <td>{{ form.smoothness_se() }}</td>
+                        <td>
+                            {% for error in form.smoothness_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.compactness_se.label }}</td>
+                        <td>{{ form.compactness_se() }}</td>
+                        <td>
+                            {% for error in form.compactness_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.concavity_se.label }}</td>
+                        <td>{{ form.concavity_se() }}</td>
+                        <td>
+                            {% for error in form.concavity_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.concave_points_se.label }}</td>
+                        <td>{{ form.concave_points_se() }}</td>
+                        <td>
+                            {% for error in form.concave_points_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.symmetry_se.label }}</td>
+                        <td>{{ form.symmetry_se() }}</td>
+                        <td>
+                            {% for error in form.symmetry_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.fractal_dimension_se.label }}</td>
+                        <td>{{ form.fractal_dimension_se() }}</td>
+                        <td>
+                            {% for error in form.fractal_dimension_se.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.radius_worst.label }}</td>
+                        <td>{{ form.radius_worst() }}</td>
+                        <td>
+                            {% for error in form.radius_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.perimeter_worst.label }}</td>
+                        <td>{{ form.perimeter_worst() }}</td>
+                        <td>
+                            {% for error in form.perimeter_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.area_worst.label }}</td>
+                        <td>{{ form.area_worst() }}</td>
+                        <td>
+                            {% for error in form.area_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.smoothness_worst.label }}</td>
+                        <td>{{ form.smoothness_worst() }}</td>
+                        <td>
+                            {% for error in form.smoothness_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.compactness_worst.label }}</td>
+                        <td>{{ form.compactness_worst() }}</td>
+                        <td>
+                            {% for error in form.compactness_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.concavity_worst.label }}</td>
+                        <td>{{ form.concavity_worst() }}</td>
+                        <td>
+                            {% for error in form.concavity_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.concave_points_worst.label }}</td>
+                        <td>{{ form.concave_points_worst() }}</td>
+                        <td>
+                            {% for error in form.concave_points_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.symmetry_worst.label }}</td>
+                        <td>{{ form.symmetry_worst() }}</td>
+                        <td>
+                            {% for error in form.symmetry_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.fractal_dimension_worst.label }}</td>
+                        <td>{{ form.fractal_dimension_worst() }}</td>
+                        <td>
+                            {% for error in form.fractal_dimension_worst.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+
                 </table> 
                 
             </div>
@@ -46,4 +313,4 @@
 
     </div>
 {% endblock %}   
- 
+
