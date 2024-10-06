@@ -19,6 +19,21 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired('Please confirm your password!'), 
                                                                      EqualTo('password' , message='Password mismatch!')])
     submit = SubmitField('Register')
+    ################################################################################## Falaki
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('That username is taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('That email is already registered. Please choose a different one.')
+
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired('Please enter your username.'), Email('Please enter your Email.')])
+    password = PasswordField('Password', validators=[DataRequired('Please enter your password')])
+    submit = SubmitField('Login')
 
 ################################################################################## fatemeh-k
 
