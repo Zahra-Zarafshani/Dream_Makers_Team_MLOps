@@ -1,17 +1,18 @@
 
 from flask_wtf import FlaskForm 
-
 from wtforms import StringField, EmailField, PasswordField, SubmitField, FileField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_wtf.file import FileAllowed, FileRequired
 
 
-from wtforms import StringField, FileField, SubmitField
-from wtforms.validators import DataRequired
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
+    submit = SubmitField('Login')
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired('Please enter username.'), 
-                                                   Length(min=3, message = ' Username must be at least 3 characters long.')])
+    username = StringField('Username', validators=[DataRequired('Please enter a username.'), 
+                                                   Length(min=3, max=20, message = ' Username must be at least 3 characters long.')])
     email = EmailField('Email', validators=[DataRequired('Please enter your Email.'), 
                                             Email(message='Email is not valid!')])
     password = PasswordField('Password', validators=[DataRequired('Please enter a password'),
@@ -34,8 +35,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired('Please enter your username.'), Email('Please enter your Email.')])
     password = PasswordField('Password', validators=[DataRequired('Please enter your password')])
     submit = SubmitField('Login')
-
-################################################################################## fatemeh-k
+ 
 
 class InputDataForm(FlaskForm):
     feature1 = StringField('Feature_1', 
@@ -107,5 +107,4 @@ class InputDataForm(FlaskForm):
         FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')
     ])
     submit = SubmitField('Predict')
-
-    
+ 

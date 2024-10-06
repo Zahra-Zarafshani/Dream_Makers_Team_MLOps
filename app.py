@@ -1,46 +1,94 @@
-
-from flask import Flask, render_template, redirect, url_for, request ,flash , session
-from forms import RegistrationForm , InputDataForm
+from flask import Flask, render_template, redirect, url_for, request, flash, session
+from forms import RegistrationForm, InputDataForm, LoginForm
 from PredictionModel import PredictionModel
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'cancerpredictionportal'   
 
-users_db = {'user@example.com': 'password'}
+# app configs
+app.config['SECRET_KEY'] = 'cancerpredictionportal'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
+
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+
+
+##############
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+##############
 
 @app.route('/')
 def Main():
-    return  render_template('login.html')
+    return render_template('login.html')
 
 
-@app.route('/register', methods=['GET' ,'POST'])
+@app.route("/register", methods=['GET', 'POST'])
 def Register():
     form = RegistrationForm()
-    
-    if request.method =='POST':
-        if form.validate_on_submit(): 
-            # Flash message for registration successfull
-            return redirect(url_for('Dashboard'))
-    
-    return render_template('register.html', form=form )
+    if request.method == 'POST' and form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash('Your account has been created! You can now log in.', 'success')
+        return redirect(url_for('Dashboard'))  # Redirect to Dashboard page after registration
+    return render_template('register.html', title='Register', form=form)
 
-@app.route('/login', methods=['GET' ,'POST'])
+
+@app.route("/login", methods=['GET', 'POST'])
 def Login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        # Check credentials
-        if username in users_db and users_db[username] == password:
-            session['user'] = username  
+    if current_user.is_authenticated:
+        return redirect(url_for('Dashboard'))
+
+    form = LoginForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        # بررسی اعتبار کاربر در دیتابیس
+        user = User.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
+            login_user(user)
+            flash('Login successful!', 'success')
             return redirect(url_for('Dashboard'))
-    return render_template('login.html' )
-        
-@app.route('/logout', methods=['GET' ,'POST'])
+        else:
+            flash('Login failed. Check your username and password.', 'danger')
+
+    return render_template('login.html', title='Login', form=form)
+
+
+@app.route('/logout')
+@login_required
 def Logout():
-        # Remove user from session 
-        # Logout flash message
-        return redirect(url_for('Login'))
-    
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('Login'))
+
+########
+
+@app.route("/input")
+@login_required
+def input():
+    # Handle input page for logged-in users only
+    return render_template('input.html')
+
+
+
 ##################################################################################
 
 
@@ -127,7 +175,8 @@ def Prediction(predicted_results):
 
 ##################################################################################
 
-
-
 if __name__ == '__main__':
+    # Create Database
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
