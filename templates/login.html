@@ -6,6 +6,16 @@
 
 {% block content %}
         <h2>Login to Your Account</h2>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="alert alert-{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <br>
         <form>
             <input type="username" placeholder="Username" required>
             <input type="password" placeholder="Password" required>

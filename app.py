@@ -1,6 +1,6 @@
-from flask import Flask, render_template, redirect, url_for, request, flash, session
-from forms import RegistrationForm, InputDataForm, LoginForm
+from flask import Flask, render_template, redirect, url_for, request, flash
 from PredictionModel import PredictionModel
+from forms import RegistrationForm, InputDataForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -79,15 +79,13 @@ def Logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('Login'))
 
-########
 
-@app.route("/input")
+#######################################################################
+
+@app.errorhandler(500)
 @login_required
-def input():
-    # Handle input page for logged-in users only
-    return render_template('input.html')
-
-
+def servererror(e): 
+    return render_template('error.html' , title='Error')
 
 ##################################################################################
 

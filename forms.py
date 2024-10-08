@@ -1,15 +1,12 @@
 
 from flask_wtf import FlaskForm 
-from wtforms import StringField, EmailField, PasswordField, SubmitField, FileField
+from wtforms import StringField, EmailField, PasswordField, SubmitField, FileField , IntegerField, FloatField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_wtf.file import FileAllowed, FileRequired
+from PredictionModel import Features
 
-
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
-    submit = SubmitField('Login')
-
+ 
+ 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired('Please enter a username.'), 
                                                    Length(min=3, max=20, message = ' Username must be at least 3 characters long.')])
@@ -37,9 +34,23 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
  
 
+ 
+
 class InputDataForm(FlaskForm):
-    feature1 = StringField('Feature_1', 
-                           validators=[DataRequired('Please enter value....')])
+    submit = SubmitField('Predict')
+
+# Dynamically add IntegerField and FileField to InputDataForm
+for feature in Features.numerical_features:
+    setattr(InputDataForm, feature, 
+            IntegerField(feature, validators=[DataRequired("Please enter value....")]))
+
+for feature in Features.file_features:
+    setattr(InputDataForm, feature, 
+            FileField(feature, validators=[FileRequired(), FileAllowed(['jpg', 'jpeg'], 'Images only!')]))
+
+
+
+"""
     diagnosis = StringField('diagnosis', 
                            validators=[DataRequired('Please enter value....')])
     radius_mean = StringField('radius_mean', 
@@ -102,9 +113,8 @@ class InputDataForm(FlaskForm):
                            validators=[DataRequired('Please enter value....')])
     
     
-    imgfile = FileField('Scan image', validators=[
-        FileRequired(),
-        FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')
-    ])
-    submit = SubmitField('Predict')
+    imgfile = 
+        
+    ])"""
+    
  
