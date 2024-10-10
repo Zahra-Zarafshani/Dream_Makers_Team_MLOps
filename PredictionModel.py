@@ -23,6 +23,8 @@ class PredictionModel(Features):
     def computed_predictions(self):
         df = pd.DataFrame(self.features_value, columns=self.all_features)
         output = self.model.predict(df)
+        #May be the following code must br written:
+        #output = self.model.predict(df)[0]
         if output == 4:
             res_val = "Breast cancer"
         else:

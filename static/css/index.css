@@ -20,6 +20,8 @@ main {
   border-radius: 10px;
 }
 
+ul{list-style-type: none;}
+
 footer,header {
   background-color: #111;
   border-radius: 10px;

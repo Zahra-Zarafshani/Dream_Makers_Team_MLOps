@@ -5,22 +5,27 @@
 
 
 {% block content %}
-        <h2>Login to Your Account</h2>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for category, message in messages %}
-                        <li class="alert alert-{{ category }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-        <br>
-        <form>
-            <input type="username" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="{{url_for('Register')}}">Register here</a></p>
+    <form method="POST" action="{{ url_for('Login') }}">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label }} 
+            {{ form.username() }}
+            {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.password.label }} 
+            {{ form.password() }}
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+    <br>
+    <p>Don't have an account? <a href="{{url_for('Register')}}">Register here</a></p>
 {% endblock %}   
   
