@@ -5,22 +5,27 @@
 
 
 {% block content %}
+    <h1>Please enter your account!</h1>
     <form method="POST" action="{{ url_for('Login') }}">
         {{ form.hidden_tag() }}
-        <div>
-            {{ form.username.label }} 
-            {{ form.username() }}
-            {% for error in form.username.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.password.label }} 
-            {{ form.password() }}
-            {% for error in form.password.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
+        <table>
+            <tr>
+                <td>{{ form.username.label }} </td>
+                <td>{{ form.username() }}</td>
+                <td>{% for error in form.username.errors %}
+                     <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </td>
+             </tr>
+             <tr>
+                <td>{{ form.password.label }} </td>
+                <td>{{ form.password() }}</td>
+                <td>{% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </td>
+             </tr>
+        </table>
         <div>
             {{ form.submit() }}
         </div>

@@ -5,14 +5,15 @@
 
 
 {% block content %}
-    <div class="container">
-        <h2 class="mt-5">Input Values</h2>
-        <form action="{{ url_for('Inputdata')}}" method="POST" novalidate> 
+        <h2 class="mt-5">Input Features:</h2>
+        <form action="{{ url_for('Inputdata')}}" method="POST" > 
             {{ form.hidden_tag() }}
             <div> 
                 <table>
                     {% for feature in Features.numerical_features %}
                     <tr>
+                        <td><strong>{{ loop.index }} : </strong></td>
+                        <td> </td>
                         <td>{{ form[feature].label }}</td>
                         <td>{{ form[feature]() }}</td>
                         <td>
@@ -28,7 +29,5 @@
             <br>
             {{ form.submit() }}
         </form>
-
-    </div> 
 {% endblock %}   
 

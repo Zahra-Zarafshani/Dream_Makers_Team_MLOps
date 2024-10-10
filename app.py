@@ -71,7 +71,9 @@ def Login():
         # بررسی اعتبار کاربر در دیتابیس
         user = User.query.filter_by(username=username).first() 
         if user and bcrypt.check_password_hash(user.password, password):
-            session['username'] = user.username
+            db.session.add(user)
+            db.session.commit()
+            #session['username'] = user.username
             #login_user(user) 
             flash('Login successful!', 'success')
             return redirect(url_for('Dashboard'))
@@ -84,8 +86,10 @@ def Login():
 @app.route('/logout')
 @login_required
 def Logout():
-    logout_user()
-    session.pop('username')
+    db.session.close()
+    db.session.commit()
+    #session.pop('username')
+    #logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('Login'))
 
@@ -122,9 +126,7 @@ def Inputdata():
             predictobj = PredictionModel(input_object)
             predicted_results =predictobj.computed_predictions()
             return render_template('prediction.html' , predicted_results=predicted_results )
-        else:
-            print("Form validation failed:===============================")
-            print(inputform.errors) 
+        
     
     return render_template('inputdata.html', form=inputform , Features=Features )
 ##################################################################################

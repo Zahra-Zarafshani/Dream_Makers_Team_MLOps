@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    
+        <h1> Welcome to your dashboard!</h1>
         <div class="icon-container">
             <table>
                 <tr>
@@ -26,8 +26,8 @@
                 </tr>
                 
                 <tr>
-                    <td>Prediction History</td>
-                    <td>New Prediction</td>
+                    <td><a href="{{url_for('History')}}"> Prediction History </a></td>
+                    <td><a href="{{url_for('Inputdata')}}"> New Prediction </a></td>
                 </tr>
 
             </table>

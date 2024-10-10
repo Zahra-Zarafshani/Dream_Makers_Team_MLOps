@@ -21,10 +21,10 @@ class PredictionModel(Features):
         self. model = pickle.load(open('model.pkl', 'rb'))
 
     def computed_predictions(self):
-        df = pd.DataFrame(self.features_value, columns=self.all_features)
-        output = self.model.predict(df)
+        #df = pd.DataFrame(self.features_value, columns=self.numerical_features)
+        #print(df)
         #May be the following code must br written:
-        #output = self.model.predict(df)[0]
+        output = self.model.predict([self.features_value])[0]
         if output == 4:
             res_val = "Breast cancer"
         else:
