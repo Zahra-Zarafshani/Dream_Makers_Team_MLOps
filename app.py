@@ -133,7 +133,6 @@ def Prediction(predicted_results):
 
 if __name__ == '__main__':
     # Create Database
-    with app.app_context():
-        #db.drop_all()
+    with app.app_context(): 
         db.create_all()
     app.run(debug=True)
