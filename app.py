@@ -1,25 +1,22 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from PredictionModel import PredictionModel , Features
 from forms import RegistrationForm, InputDataForm, LoginForm
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 import database
 
-
-
 app = Flask(__name__)
+
 # app configs
 app.config['SECRET_KEY'] = 'cancerpredictionportal'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = database.db
 db.init_app(app)
 
-##############
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-@login_manager.user_loader
-def load_user(user_id):
-    return database.User.query.get(int(user_id))
-##############
+@app.before_request
+def login_required_pages():
+    login_required_routes = ['/dashboard' , '/history', '/inputdata' , '/prediction'] 
+    if 'username' not in session and request.path in login_required_routes:
+         return redirect(url_for('Login'))
+
 
 @app.route('/')
 def Main():
@@ -54,7 +51,8 @@ def Register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def Login():
-    if current_user.is_authenticated:
+    if 'username' in session:
+        flash('You are already logged in.')
         return redirect(url_for('Dashboard'))
     form = LoginForm() 
     if request.method == 'POST' and form.validate_on_submit():
@@ -73,7 +71,6 @@ def Login():
 
 
 @app.route('/logout')
-@login_required
 def Logout():
     db.session.close()
     db.session.commit()
@@ -86,12 +83,10 @@ def Logout():
 #######################################################################
 
 @app.errorhandler(500)
-@login_required
 def servererror(e): 
     return render_template('error.html' , title='Error')
 
 ##################################################################################
-
 
 @app.route('/dashboard', methods=['GET'])
 def Dashboard():
