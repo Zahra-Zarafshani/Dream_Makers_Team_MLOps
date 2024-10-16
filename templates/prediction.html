@@ -3,11 +3,38 @@
 
 {% block title %}  Prediction {% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
 
-{% block content %} 
-    <h2 class="mt-5">Predicted values</h2>
-    <p class="lead">The prediction is: <strong>${{ predicted_results }}</strong></p>
-    <a href="{{ url_for('Inputdata') }}" class="btn btn-primary">Predict Again</a>
+{% block content %}  
+    <div class="icon-container">
+        <table>
+            <thead>
+                    Predicted Results: 
+                    <strong>{{ predicted_results }}</strong>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="{{url_for('History')}}">
+                            <img src="{{ url_for('static', filename='icons/historyicon.gif') }}" alt="History" class="icon">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('Inputdata')}}">
+                            <img src="{{ url_for('static', filename='icons/inputdataicon.gif') }}" alt="Input Data" class="icon">
+                        </a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><a href="{{url_for('History')}}"> Prediction History </a></td>
+                    <td><a href="{{url_for('Inputdata')}}"> New Prediction </a></td>
+                </tr>
+            </tbody>    
+        </table>
+    </div> 
 
 {% endblock %}   
  

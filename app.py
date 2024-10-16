@@ -1,36 +1,24 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from PredictionModel import PredictionModel , Features
 from forms import RegistrationForm, InputDataForm, LoginForm
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+import database
+
+
 
 app = Flask(__name__)
-
 # app configs
 app.config['SECRET_KEY'] = 'cancerpredictionportal'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
-
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
-
-     
+db = database.db
+db.init_app(app)
 
 ##############
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return database.User.query.get(int(user_id))
 ##############
 
 @app.route('/')
@@ -43,19 +31,24 @@ def Main():
 def Register():
     form = RegistrationForm()
     if request.method == 'POST' and form.validate_on_submit():
-            #check whether the username or email exists already
-            user = User.query.filter_by(username=form.username.data).first()
-            email = User.query.filter_by(email=form.email.data).first() 
-            if user or email:
-                flash(f'{form.username.data} or {form.email.data} already registered. Please try again.', 'danger')
-                return redirect(url_for('Register')) 
-            else: #information is ok. register a new one
-                hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-                user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-                db.session.add(user)
-                db.session.commit()
-                flash('Your account has been created! You can now log in.', 'success')
-                return redirect(url_for('Login'))  
+            username = form.username.data
+            email = form.email.data
+            password = form.password.data
+            registered_user = database.register_user(username, email , password) 
+
+            if registered_user!=None :
+                message = 'Your account has been created! You can now log in.'
+                message_stat = 'success'
+                redirect_page = 'Login'
+            else:
+                message = message = f'{username} or {email} already registered. Please try again.'
+                message_stat = 'danger'
+                redirect_page = 'Register'
+
+            flash(message, message_stat)
+            return redirect(url_for(redirect_page))
+            
+    # for 'GET'request:
     return render_template('register.html', title='Register', form=form)
 
 
@@ -66,14 +59,10 @@ def Login():
     form = LoginForm() 
     if request.method == 'POST' and form.validate_on_submit():
         username = form.username.data
-        password = form.password.data  
-
-        # بررسی اعتبار کاربر در دیتابیس
-        user = User.query.filter_by(username=username).first() 
-        if user and bcrypt.check_password_hash(user.password, password):
-            db.session.add(user)
-            db.session.commit()
-            #session['username'] = user.username
+        password = form.password.data
+        user =  database.valid_user_check(username , password)
+        if user:
+            session['username'] = user.username
             #login_user(user) 
             flash('Login successful!', 'success')
             return redirect(url_for('Dashboard'))
@@ -88,10 +77,10 @@ def Login():
 def Logout():
     db.session.close()
     db.session.commit()
-    #session.pop('username')
+    session.pop('username')
     #logout_user()
     flash('You have been logged out.', 'info')
-    return redirect(url_for('Login'))
+    return redirect(url_for('Login' , _method ='GET'))  
 
 
 #######################################################################
@@ -106,7 +95,7 @@ def servererror(e):
 
 @app.route('/dashboard', methods=['GET'])
 def Dashboard():
-        return render_template('dashboard.html'  )
+        return render_template('dashboard.html' )
 
 
 ################################################################################## fatemeh-k
@@ -119,12 +108,12 @@ def Inputdata():
             input_object = {} 
             for numfeature in Features.numerical_features: 
                     input_object[numfeature] = inputform[numfeature].data
-            print("==============================")
-            print(input_object)
-            print("==============================")
   
             predictobj = PredictionModel(input_object)
             predicted_results =predictobj.computed_predictions()
+            print(predicted_results)
+            database.store_prediction(session['username'], input_object, *predicted_results.values())
+            flash('Your prediction is stored in your History.' , 'success')
             return render_template('prediction.html' , predicted_results=predicted_results )
         
     
@@ -134,7 +123,10 @@ def Inputdata():
 @app.route('/history', methods=['GET'])
 def History():
         # extract History from database
-        return render_template('history.html'  )
+        print(session['username'] , "ddddddddddddddddddddddddddddddddddddddddd")
+        all_preds = database.get_user_predictions(username = session['username'])
+        return render_template('history.html' , predictions=all_preds , 
+                               num_features= Features.numerical_features )
 
 ################################################################################## fatemeh-k
 
@@ -147,5 +139,6 @@ def Prediction(predicted_results):
 if __name__ == '__main__':
     # Create Database
     with app.app_context():
+        #db.drop_all()
         db.create_all()
     app.run(debug=True)
