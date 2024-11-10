@@ -1,0 +1,110 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+main {
+  padding-left: 5px;
+  padding-top: 5px;
+  flex: 1; 
+}
+.navbar{ 
+  padding: 10px 10px;
+  background-color:#1be858;
+  border-radius: 10px;
+}
+
+ul{list-style-type: none;}
+
+footer,header {
+  background-color: #111;
+  border-radius: 10px;
+  margin: 1%;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;  
+}
+
+.navbaritem{
+  float: left;  
+}
+
+.navbaritem a {
+  color: white;   
+  font: 1.2em sans-serif;
+  text-decoration: none; 
+  padding: 14px 20px; 
+}
+
+
+.navbaritem a:hover {
+  background-color: #111;  
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #4cae4c;
+}
+
+p {
+  margin-top: 15px;
+}
+ 
+.container {
+  background-color: white;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100 vh;
+  text-align: center;
+}

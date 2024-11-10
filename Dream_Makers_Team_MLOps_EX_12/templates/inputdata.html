@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+
+{% block title %}  Input Data {% endblock %}
+
+
+{% block content %}
+        <h2 class="mt-5">Input Features:</h2>
+        <form action="{{ url_for('Inputdata')}}" method="POST" > 
+            {{ form.hidden_tag() }}
+            <div> 
+                <table>
+                    {% for feature in Features.numerical_features %}
+                    <tr>
+                        <td><strong>{{ loop.index }} : </strong></td>
+                        <td> </td>
+                        <td>{{ form[feature].label }}</td>
+                        <td>{{ form[feature]() }}</td>
+                        <td>
+                            {% for error in form[feature].errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            
+            <br>
+            {{ form.submit() }}
+        </form>
+{% endblock %}   
+

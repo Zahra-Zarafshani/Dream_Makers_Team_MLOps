@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+
+{% block title %}  Prediction {% endblock %}
+
+{% block styles %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet" >
+{% endblock %}
+
+{% block content %}  
+    <div class="icon-container">
+        <table>
+            <thead>
+                    Predicted Results: 
+                    <strong>{{ predicted_results }}</strong>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="{{url_for('History')}}">
+                            <img src="{{ url_for('static', filename='icons/historyicon.gif') }}" alt="History" class="icon">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('Inputdata')}}">
+                            <img src="{{ url_for('static', filename='icons/inputdataicon.gif') }}" alt="Input Data" class="icon">
+                        </a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><a href="{{url_for('History')}}"> Prediction History </a></td>
+                    <td><a href="{{url_for('Inputdata')}}"> New Prediction </a></td>
+                </tr>
+            </tbody>    
+        </table>
+    </div> 
+
+{% endblock %}   
+ 

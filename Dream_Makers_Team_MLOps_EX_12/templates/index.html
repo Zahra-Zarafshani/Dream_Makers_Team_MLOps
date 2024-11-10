@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Index{% endblock %}</title>
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    {% block styles %} {% endblock %}
+    
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <br>
+            <br>
+        </header>
+
+        <main>
+            <div class="container">
+                <div >
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                            <ul class="flashes">
+                                {% for category, message in messages %}
+                                    <li class="alert alert-{{ category }}">{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+
+                {% block content %}
+                Please <a href="{{url_for('Login')}}">Login </a> or
+                 <a href="{{url_for('Register')}}">Register</a>!
+                {% endblock %}
+            </div>
+        </main>
+
+        <footer>
+            
+        </footer>
+    </div>
+</body>
+</html>

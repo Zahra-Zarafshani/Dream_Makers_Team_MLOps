@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Prediction History </title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Your Prediction History</h1>
+        
+        {% if predictions %}
+            <table class="table table-bordered mt-4">
+                <thead class="thead-light">
+                    <tr>
+                        {% for num_feature in num_features %}
+                            <th>{{num_feature}}</th>
+                        {%endfor%}
+                        <th>Model Prediction</th>
+                        <th>Predicted Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in predictions %}
+                    <tr>
+                        {% for num_feature in num_features %}
+                            <td>{{record[num_feature]}}</td>
+                        {%endfor%}
+                        <th>{{ record['prediction'] }}</th> <!-- نتیجه پیش‌بینی -->
+                        <td>{{ record['pred_time'] }}</td> <!-- زمان ثبت پیش‌بینی -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-warning mt-4" role="alert">
+                No Prediction registered.
+            </div>
+        {% endif %}
+        
+        <div class="mt-4 text-center">
+            <a href="{{url_for('Logout')}}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+<!-- 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+-->
+</body>
+</html>
