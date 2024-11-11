@@ -5,8 +5,22 @@ import pickle
 class Features:
         numerical_features =['age','sex','cp','trestbps','chol',
                              'fbs','restecg','thalach','exang',
-                             'oldpeak','slope','ca','thal','condition'
-]
+                             'oldpeak','slope','ca','thal'
+                            ]
+        num_feature_description = {'age':'Age',
+                    'sex':'Sex',
+                    'cp':'Chest pain type (4 values)',
+                    'trestbps':'Resting blood pressure',
+                    'chol':'Serum cholestoral in mg/dl',
+                    'fbs':'Fasting blood sugar mg/dl',
+                    'restecg':'Resting electrocardiographic (values 0,1,2)',
+                    'thalach':'Maximum heart rate achieved',
+                    'exang':'condition Exercise induced angina',
+                    'oldpeak':'ST depression induced by exercise relative to rest',
+                    'slope':'The slope of the peak exercise ST segment',
+                    'ca':'Number of major vessels (0-3) colored by flourosopy',
+                    'thal':'thal: 0 = normal; 1 = fixed defect; 2 = reversable defect',
+                    }
         file_features = []
         
 

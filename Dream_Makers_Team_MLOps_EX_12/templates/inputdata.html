@@ -14,7 +14,8 @@
                     <tr>
                         <td><strong>{{ loop.index }} : </strong></td>
                         <td> </td>
-                        <td>{{ form[feature].label }}</td>
+                        <td>{{ form[feature].label }} </td>
+                        <td> {{ Features.num_feature_description[feature] }}</td>
                         <td>{{ form[feature]() }}</td>
                         <td>
                             {% for error in form[feature].errors %}
