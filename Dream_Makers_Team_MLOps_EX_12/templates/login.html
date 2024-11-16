@@ -1,36 +1,74 @@
-{% extends "index.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Heart Disease Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for styling -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 10px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg form-container">
+            <div class="card-header text-center">
+                <h2>Login to Your Account</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('login') }}">
+                    <!-- Flash message for errors or success -->
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="alert alert-warning">
+                                <ul>
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <!-- Username Field -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
 
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
 
-{% block title %}  Login {% endblock %}
-
-
-{% block content %}
-    <h1>Please enter your account!</h1>
-    <form method="POST" action="{{ url_for('Login') }}">
-        {{ form.hidden_tag() }}
-        <table>
-            <tr>
-                <td>{{ form.username.label }} </td>
-                <td>{{ form.username() }}</td>
-                <td>{% for error in form.username.errors %}
-                     <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </td>
-             </tr>
-             <tr>
-                <td>{{ form.password.label }} </td>
-                <td>{{ form.password() }}</td>
-                <td>{% for error in form.password.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </td>
-             </tr>
-        </table>
-        <div>
-            {{ form.submit() }}
+                    <!-- Submit Button -->
+                    <div class="mb-3 text-center">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <p class="text-center">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+            </div>
         </div>
-    </form>
-    <br>
-    <p>Don't have an account? <a href="{{url_for('Register')}}">Register here</a></p>
-{% endblock %}   
-  
+    </div>
+
+    <!-- Bootstrap JS (Optional, for interactions like dropdowns or modals) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
