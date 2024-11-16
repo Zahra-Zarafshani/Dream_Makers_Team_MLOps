@@ -1,0 +1,43 @@
+/* styles.css */
+body {
+    background-color: #f4f6f9;
+    font-family: Arial, sans-serif;
+}
+
+
+.container {
+    max-width: 1100px;
+    margin-top: 50px;
+    background-color: #ffffff ;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.input-group-addon {
+    background-color: #f8f9fa;
+    border-right: 0;
+}
+
+.inputGroupContainer .form-control {
+    border-left: 0;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+legend h2, legend p {
+    margin: 0;
+    text-align: center;
+    font-weight: normal;
+}
